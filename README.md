@@ -35,7 +35,10 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-In the first commit: 
+NOTE TO SELF
+In the adding all files commit: 
 - static files added in the _theme_files
 - Meta data added in layout.jsx file
 - page.jsx was added as a route
+First commit 
+- added routes to the project
