@@ -1,5 +1,14 @@
+'use client';
+import { useRouter } from "next/navigation";
+
 const PropertyPage = () => {
-    return <div>Property page</div>;
-}
+    const router = useRouter()
+    console.log(router)
+    return (
+        <div>
+            <button onClick={() => router.replace('/')}>Home</button>
+        </div>
+    );
+};
  
 export default PropertyPage;
