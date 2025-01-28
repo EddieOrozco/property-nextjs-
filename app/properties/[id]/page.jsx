@@ -1,8 +1,8 @@
-const PropertyPage = ({params, searchParams}) => {
+const PropertyPage = ({params}) => {
 
     return (
         <div>
-            Property Page {searchParams.name} 
+            Property Page {params.id} 
         </div>
     );
 };
