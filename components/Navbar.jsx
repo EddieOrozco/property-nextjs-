@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import logo from '@/assets/images/logo-white.png';
 import profileDefault from '@/assets/images/profile.png'
 import { FaGoogle } from 'react-icons/fa';
@@ -9,6 +10,9 @@ import { FaGoogle } from 'react-icons/fa';
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+    const pathname = usePathname();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     return ( 
         <nav className="bg-blue-700 border-b border-blue-500">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -61,24 +65,29 @@ const Navbar = () => {
                     <div className="flex space-x-2">
                     <Link
                         href="/"
-                        className="text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
+                        className={`${pathname === '/' ? 'bg-black' : '' } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
                         Home
                      </Link>
                     <Link
                         href="/properties"
-                        className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                        >Properties
+                        className={`${pathname === '/properties' ? 'bg-black' : '' } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
+                        Properties
                     </Link>
+                    {
+                        isLoggedIn && (
                     <Link
                         href="/properties/add"
-                        className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                        >Add Property    
+                        className={`${pathname === '/properties/add' ? 'bg-black' : '' } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}>
+                        Add Property    
                     </Link>
+                    )}
                     </div>
                 </div>
                 </div>
     
                 {/* <!-- Right Side Menu (Logged Out) --> */}
+                {
+                    !isLoggedIn && (
                 <div className="hidden md:block md:ml-6">
                 <div className="flex items-center">
                     <button
@@ -89,8 +98,11 @@ const Navbar = () => {
                     </button>
                 </div>
                 </div>
-    
+                    )
+                }
                 {/* <!-- Right Side Menu (Logged In) --> */}
+                {
+                    isLoggedIn && (
                 <div
                 className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0"
                 >
@@ -143,7 +155,7 @@ const Navbar = () => {
                         />
                     </button>
                     </div>
-    
+                    
                     {/* <!-- Profile dropdown --> */}
                 {isProfileMenuOpen && (
                     <div
@@ -183,6 +195,8 @@ const Navbar = () => {
                 )}
                 </div>
                 </div>
+            )
+        }
             </div>
             </div>
     
@@ -192,25 +206,32 @@ const Navbar = () => {
                 <div className="space-y-1 px-2 pb-3 pt-2">
                     <Link
                     href="/"
-                    className="bg-black text-white block rounded-md px-3 py-2 text-base font-medium"
+                    className={`${pathname === '/' ? 'bg-black' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}
                     >Home
                     </Link>
                     <Link
                     href="/properties"
-                    className="text-white block rounded-md px-3 py-2 text-base font-medium"
+                    className={`${pathname === '/properties' ? 'bg-black' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}
                     >Properties
                     </Link>
+                    {
+                        isLoggedIn && (
                     <Link
                     href="/properties/add"
-                    className="text-white block rounded-md px-3 py-2 text-base font-medium"
+                    className={`${pathname === '/properties/add' ? 'bg-black' : '' } text-white block rounded-md px-3 py-2 text-base font-medium`}
                     >Add Property
                     </Link>
+                    )}
+                    {
+                        !isLoggedIn && (
                     <button
                     className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-5"
                     >
                     <i className="fa-brands fa-google mr-2"></i>
                     <span>Login or Register</span>
                     </button>
+                        )
+                    }
                 </div>
             </div>
         )}
